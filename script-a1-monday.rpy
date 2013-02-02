@@ -531,7 +531,8 @@ shi "…"
 show misha sign_smile
 with charachange
 mi "Do you like the school so far? We can show you around a little if you haven't had the time to walk around and…{w=0.5}{nw}"
-show misha perky_smile
+show misha perky_smile:
+    pause 0 "misha perky_confused" with Dissolve(0.5, alpha=True)
 with None
 extend " familiarize?{w=0.5}{nw}"
 show misha perky_confused:
