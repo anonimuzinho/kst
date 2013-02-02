@@ -1,0 +1,135 @@
+﻿# Developer module for ks. Remove this file (and its bytecode!) before distribution.
+init:
+    $ show_warp_button = True
+
+    python hide:
+        def warp_overlay():
+            if not show_warp_button:
+                return
+# The function that is called when the button is clicked.
+            def clicked():
+                renpy.jump("simple_return")
+                        
+            ui.textbutton(">>",clicked=clicked, xpos=798, xanchor=1.0, ypos=2, xpadding=6,
+                background=RoundRect((0, 60, 120, 255), 6),
+                hover_background=RoundRect((0, 80, 160, 255), 6),
+                )
+
+        config.overlay_functions.append(warp_overlay)
+
+init 3 python:
+
+    nongamemenus += 1 # lint hack, one is in here
+
+    def show_attractions():
+        global attraction_lilly, attraction_hanako, attraction_rin, attraction_emi, attraction_shizune, automode, notextmode
+        if store.notextmode:
+            ui.vbox(xalign=1.0, yalign=0.0)
+            if not automode:
+                ui.text("Emi: " + str(attraction_emi))
+                ui.text("Hanako: " + str(attraction_hanako))
+                ui.text("Lilly: " + str(attraction_lilly))
+                ui.text("Rin: " + str(attraction_rin))
+                ui.text("Shizune: " + str(attraction_sc))
+            else:            
+                total = persistent.emi + persistent.hanako + persistent.lilly + persistent.rin + persistent.shizune + persistent.bad
+                percentage = object()
+
+                percentage.emi = make_percentage(persistent.emi, total, 1)
+                percentage.hanako = make_percentage(persistent.hanako, total, 1)
+                percentage.lilly = make_percentage(persistent.lilly, total, 1)
+                percentage.rin = make_percentage(persistent.rin, total, 1)
+                percentage.shizune = make_percentage(persistent.shizune, total, 1)
+                percentage.badend = make_percentage(persistent.bad, total, 1)
+
+                ui.grid(2,7)
+                ui.text("Runs:")
+                ui.text(str(total), xalign=1.0)
+                ui.text("Emi:")
+                ui.text(str(percentage.emi) + "%", xalign=1.0)
+                ui.text("Hanako:")
+                ui.text(str(percentage.hanako) + "%", xalign=1.0)
+                ui.text("Lilly:")
+                ui.text(str(percentage.lilly) + "%", xalign=1.0)
+                ui.text("Rin:")
+                ui.text(str(percentage.rin) + "%", xalign=1.0)
+                ui.text("Shizune:")
+                ui.text(str(percentage.shizune) + "%", xalign=1.0)
+                ui.text("BAD END:")
+                ui.text(str(percentage.badend) + "%", xalign=1.0)
+                ui.close()
+            ui.close()
+            ui.add(renpy.Keymap(game_menu=ui.jumps("cruise_control")))
+
+    config.overlay_functions.append(show_attractions)
+    
+    config.developer = True
+
+label cruise_control:
+    stop music
+    $ menueffect = None
+    $ mycontext = "game"
+    $ init_vars()
+    $ notextmode = False
+    $ automode = False    
+    $ playthroughflag = True
+    $ config.auto_choice_delay = None
+    menu:
+        "Test Drive":
+            $ notextmode = True
+            $ automode = False
+            jump imachine
+
+        "Benchmark":
+            $ notextmode = True
+            $ automode = True
+            $ config.auto_choice_delay = 0.0001
+            jump imachine
+
+        "Clear Benchmark Data":
+            jump benchreset
+
+        "Restart":
+            $ renpy.utter_restart()
+
+label benchreset:
+    python:
+        if _yesno_prompt(None, "Do you really want to clear the benchmark data?"):
+            persistent.emi = 0
+            persistent.hanako = 0
+            persistent.lilly = 0
+            persistent.rin = 0
+            persistent.shizune = 0
+            persistent.badend = 0
+    jump cruise_control
+
+# the following is the KS lint hack (renpy/lint.py), stored here in case lint.py is updated
+
+#    try:
+#        scene_count = len(renpy.store.get_available_scenes(include_locked=True, exclude_hidden=True))
+#        nongamemenus = renpy.store.nongamemenus
+#    except:
+#        scene_count = False
+#        nongamemenus = False
+#
+#    print
+#    print "Statistics:"
+#    print
+#    if scene_count:
+#        print "Katawa Shoujo contains", scene_count, "scenes." # KS specific hack by delta.
+#        print "These scenes contain", say_count, "screens of dialogue." # KS, delta, etc.
+#    else:
+#        print "The game contains", say_count, "screens of dialogue."
+#    print "These screens contain a total of", say_words, "words."
+#    if say_count > 0:
+#        print "For an average of %.1f words per screen." % (1.0 * say_words / say_count)
+#        if  scene_count > 0:
+#            print "And an average of %.1f words per scene." % (1.0 * say_words / scene_count) # not even gonna say it
+#    print "The game contains", (menu_count - nongamemenus), "menus." # KS specific because we have non-game menus
+#    print
+#
+#    if renpy.config.developer:
+#        print "Remember to set config.developer to False before releasing."
+#    print "Lint is not a substitute for thorough testing."
+#    print "Remember to update Ren'Py before releasing. New releases fix bugs and"
+#    print "improve compatibility."
