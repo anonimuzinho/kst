@@ -535,8 +535,7 @@ show misha perky_smile:
     pause 0 "misha perky_confused" with Dissolve(0.5, alpha=True)
 with None
 extend " familiarize?{w=0.5}{nw}"
-show misha perky_confused:
-    pause 0 "misha perky_smile" with Dissolve(0.5, alpha=True)
+show misha perky_confused
 with None
 extend " yourself with it!"
 "Misha stumbles with the hard word a bit, making it stick out in her otherwise fluid translation."
