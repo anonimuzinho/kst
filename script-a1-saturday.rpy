@@ -2365,11 +2365,10 @@ show misha sign_smile
 with charachange
 show misha perky_smile
 with charachange
-mi "And here's how much it all costs: 3685 yen!"
-show misha perky_smile:
-    pause 0 "misha cross_laugh" with Dissolve(0.5, alpha=True)
-with None
-extend " Wahahahaha~!"
+mi "TesteAnd here's how much it all costs: 3685 yen!"
+show misha cross_laugh at twoleft
+with charachange
+mi "Wahahahaha~!"
 hi "Well, I don't know in how many situations I'll need to remember such an exact number…"
 mi "Ahahahaha! Okay~! I'm going to order now, unless anyone wants something else. No objections? All right all right, then!"
 scene bg school_council_ni

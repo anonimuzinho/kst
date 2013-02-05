@@ -700,7 +700,7 @@ hi "Hanako, I just want to help you—{w=0.3}{nw}"
 scene ev hanako_rage:
     pause 0 truecenter
     pause 0 subpixel True zoom 3.0
-    pause 0 0.25
+    pause 0
     linear 0.2 zoom 1.05
     easein 8.0 zoom 1.0
 with flash
@@ -2526,8 +2526,10 @@ scene ev hanako_goodend:
     parallel:
         easein 12.0 zoom 0.8
     parallel:
-        pause 0 6.0
-        pause 0 "ev hanako_goodend_muffin" with Dissolve(2.0)
+        pause 0
+        pause 0 
+show ev hanako_goodend_muffin
+with Dissolve(2.0)
 with locationchange
 $ renpy.pause(12.0, hard=True)
 $ renpy.music.set_volume(1.0, 2.0, channel="ambient")

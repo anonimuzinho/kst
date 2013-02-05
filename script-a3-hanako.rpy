@@ -1425,12 +1425,12 @@ stop ambient fadeout 4.0
 $ ksgallery_unlock("evul hanako_breakdown_down")
 scene evbg hanako_breakdown:
     pause 0 truecenter
-    pause 0 1.0
+    pause 0 
     pause 0 zoom 1.05 subpixel True
     easein 8.0 zoom 1.0
 show evfg hanako_breakdown_down:
     pause 0 truecenter
-    pause 0 1.0
+    pause 0 
     pause 0 zoom 1.1 subpixel True
     easein 8.0 zoom 1.0
 with silentwhiteout
@@ -1442,7 +1442,7 @@ play music music_tragic fadein 8.0
 $ ksgallery_unlock("evul hanako_breakdown_up")
 scene evbg hanako_breakdown:
     pause 0 truecenter
-    pause 0 1.0
+    pause 0 
     pause 0 zoom 1.0 subpixel False
 show evfg hanako_breakdown_up:
     pause 0 truecenter
@@ -2327,7 +2327,7 @@ li "Sorry for not introducing you, Hisao. This is Akira Satou, my elder sister."
 hi "I see. Nice to meet you."
 show akira basic_ending
 show hanagown worry:
-    pause 0 0.1
+    pause 0
     ease 0.1 ypos 1.15
     ease 0.1 ypos 1.17
 with Dissolve(0.1)
@@ -2584,8 +2584,8 @@ show hanagown drunkgiggle_close:
         ease 1.5 xpos 0.55
         ease 0.5 center
     parallel:
-        pause 0 1.5
-        pause 0 "hanagown drunkgiggle_close_ni" with Dissolve(1.0, alpha=True)
+        pause 0
+show hanagown drunkgiggle_close_ni with Dissolve(1.0, alpha=True)
 show bg school_dormlilly:
     ease 1.0 xpos 0.45
 show akira basic_smile:
